@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Greenhouse Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Greenhouse hub</a>
+    </nav>
+    <div class="container mt-3 bg-light">
+      <!-- Container -->
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <!-- Sensors -->
+              <h3>Sensors</h3>
+              <div class="row">
+                <!-- Sensors first row -->
+                <div class="col-lg-6 pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <h4 class="card-title">Temperature</h4>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <h5 id="temperatureValue" class="card-text">N/A</h5>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                          <span class="badge badge-success">Live</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <h4 class="card-title">Humidity</h4>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <h5 id="humidityValue" class="card-text">N/A</h5>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                          <span class="badge badge-success">Live</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Sensors first row -->
+              <div class="row">
+                <!-- Sensors second row -->
+                <div class="col-lg-6 pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <h4 class="card-title">Light intensity</h4>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <h5 class="card-text">N/A</h5>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                          <span class="badge badge-danger">Offline</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Sensors second row -->
+            </div>
+            <!-- end Sensors -->
+          </div>
+          <div class="row">
+            <div class="col mt-3">
+              <!-- Controls -->
+              <h3>Controls</h3>
+              <div class="row">
+                <!-- Controls first row -->
+                <div class="col pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <h4 class="card-title">Window</h4>
+                          <h6 class="card-subtitle mb-2 text-muted">Open</h6>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                          <button
+                            type="button"
+                            id="ledOn"
+                            class="btn btn-block btn-success"
+                          >
+                            Open
+                          </button>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                          <button
+                            type="button"
+                            id="ledOff"
+                            class="btn btn-block btn-danger"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Controls first row -->
+              <div class="row">
+                <!-- Controls second row -->
+                <div class="col pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <h4 class="card-title">Heating</h4>
+                          <h6
+                            id="heatingState"
+                            class="card-subtitle mb-2 text-muted"
+                          >
+                            Off
+                          </h6>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                          <button
+                            type="button"
+                            id="heatingOn"
+                            class="btn btn-block btn-success"
+                          >
+                            On
+                          </button>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                          <button
+                            type="button"
+                            id="heatingOff"
+                            class="btn btn-block btn-danger"
+                          >
+                            Off
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Controls second row -->
+              <div class="row">
+                <!-- Controls third row -->
+                <div class="col pb-3">
+                  <div class="card shadow">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <h4 class="card-title">Lamp's intensity</h4>
+                          <h6 class="card-subtitle mb-2 text-muted">50%</h6>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                          <div class="input-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              aria-label="Dollar amount (with dot and two decimal places)"
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text">%</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                          <button
+                            class="btn btn-block btn-outline-dark"
+                            type="button"
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- end Controls third row -->
+            </div>
+          </div>
+          <!-- end Controlls warpper row -->
+        </div>
+        <div class="col-sm-6">
+          <!-- Logs -->
+          <h3>Live logs</h3>
+          <div
+            class="card text-black bg-light mb-3 shadow"
+            style="height: 590px"
+          >
+            <div class="card-header">Beaglebone Black</div>
+            <div class="card-body">
+              <div
+                class="scrollable"
+                style="overflow-y: auto; max-height: 500px"
+              >
+                <p id="logOutput" class="card-text text-secondary"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end Logs -->
+      </div>
+      <!-- end first row -->
+    </div>
+    <!-- end Container -->
+  </body>
+  <script src="bundle.js"></script>
+</html>
