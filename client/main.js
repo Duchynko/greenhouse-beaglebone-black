@@ -1,6 +1,5 @@
 const io = require('socket.io-client');
-const socket = io.connect('http://192.168.7.2:5500') 
-console.log(socket)
+const socket = io.connect('http://10.152.214.70:5500', {transports: ['websocket']}) 
 
 const heatingOnButton = document.getElementById('heatingOn')
 const heatingOffButton = document.getElementById('heatingOff')

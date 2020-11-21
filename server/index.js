@@ -1,5 +1,5 @@
 const http = require("http").createServer();
-const io = require("socket.io")(http);
+const io = require("socket.io", {transports: ['websocket']})(http);
 const readHumidityAndTemperature = require("./sensors/hih8120");
 
 const PORT = 5500

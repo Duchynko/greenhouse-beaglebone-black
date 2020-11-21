@@ -7,9 +7,11 @@ function readData(io) {
     console.log("Starting to read humidity and temperature...");
 
     proc.stdout.on("data", (data) => {
-      console.log(data.toString())
+      console.log("Data:", data.toString())
       const humidity = getHumidityFromRead(data);
+      console.log("Humidity:", humidity)
       const temperature = getTemperatureFromRead(data);
+      console.log("Temperature:", temperature)
       io.emit("humidityData", humidity);
       io.emit("temperatureData", temperature);
     });
