@@ -6,6 +6,8 @@ namespace exploringBB
     {
         setPeriod(DEFAULT_PERIOD);
         setDutyCycle((unsigned int)MIN_DUTY_CYCLE);
+        setPolarity(PWM::ACTIVE_LOW);
+        run();
     }
 
     void SG90::rotate(float angle)
