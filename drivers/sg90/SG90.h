@@ -20,6 +20,6 @@ namespace exploringBB
         virtual ~SG90();
 
     private:
-        unsigned int angleToMilliseconds(float angle);
+        double angleToDutyCycle(float angle);
     };
 } /* namespace exploringBB */

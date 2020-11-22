@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[])
 {
-    unsigned int angle = atoi(argv[0]);
+    unsigned int angle = atoi(argv[1]);
 
     if (angle >= 0 || angle <= 180)
     {

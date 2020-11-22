@@ -1,22 +1,29 @@
 const spawn = require("child_process").spawn;
-const proc = spawn("./test.sh");
 
-function readTemperature(io) {
-  console.log("Start reading light intensity...");
-  proc.stdout.on("data", (data) => {
-    io.emit('lightData', data.toString());
-  });
+function readData(io) {
+  try {
+    // const proc = spawn("./bin/ldr");
+    const proc = spawn("./bin/test_light.sh");
+    console.log("Starting to read light intensity...");
 
-  proc.stderr.on("data", (data) => {
-    console.error(data.toString());
-    io.emit('lightData', "error");
-  });
+    proc.stdout.on("data", (data) => {
+      io.emit("lightData", data.toString());
+    });
 
-  proc.on("close", (code) => {
-    if (code !== 0) {
-      console.log(`Light intensity reading process exited with code ${code}`);
-    }
-  });
+    proc.stderr.on("data", (data) => {
+      console.error(data.toString());
+      io.emit("lightData", "error");
+    });
+
+    proc.on("close", (code) => {
+      if (code !== 0) {
+        console.log(`ldr process exited with code ${code}`);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    io.emit("lightData", "error");
+  }
 }
 
-module.exports = readTemperature;
+module.exports = readData;

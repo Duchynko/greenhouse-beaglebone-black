@@ -1,12 +1,19 @@
 const io = require('socket.io-client');
-const socket = io.connect('http://10.152.214.70:5500', {transports: ['websocket']}) 
+const socket = io.connect('http://192.168.207.205:5500', {transports: ['websocket']}) 
 
 const heatingOnButton = document.getElementById('heatingOn')
 const heatingOffButton = document.getElementById('heatingOff')
+const heatingStateField = document.getElementById('heatingState')
+const windowOpenButton = document.getElementById('windowOpen')
+const windowCloseButton = document.getElementById('windowClose')
+const windowStateField = document.getElementById('windowState')
+const ledBritghtnessSetButton = document.getElementById('ledBrightnessSet')
+const ledBrightnessInputField = document.getElementById('ledBrightnessInput')
+const ledBrightnessStateField = document.getElementById('ledBrightnessState')
 const temperatureField = document.getElementById('temperatureValue')
 const humidityField = document.getElementById('humidityValue')
+const lightIntensityField = document.getElementById('lightIntensity')
 const logConsole = document.getElementById('logOutput')
-const heatingStateField = document.getElementById('heatingState')
 
 heatingOnButton.onclick = (ev) => {
     socket.emit('heatingOn', (ack) => {
@@ -30,6 +37,40 @@ heatingOffButton.onclick = (ev) => {
     })
 }
 
+windowOpenButton.onclick = (ev) => {
+    socket.emit('windowOpen', (ack) => {
+        if (ack === 'ok') {
+            windowStateField.innerHTML = 'Open'
+            writeLog(logConsole, `Window opened`)
+        } else {
+            writeLog(logConsole, `Error while opening the window`)
+        }
+    })
+}
+
+windowCloseButton.onclick = (ev) => {
+    socket.emit('windowClose', (ack) => {
+        if (ack === 'ok') {
+            windowStateField.innerHTML = 'Closed'
+            writeLog(logConsole, `Window closed`)
+        } else {
+            writeLog(logConsole, `Error while closing the window`)
+        }
+    })
+}
+
+ledBritghtnessSetButton.onclick = (ev) => {
+    const newBrightness = ledBrightnessInputField.value
+    socket.emit('brightnesSet', newBrightness, (ack) => {
+        // if (ack === 'ok') { -> Sending data + ack doesn't work in version 2.x 
+        ledBrightnessStateField.innerHTML = newBrightness + '%'
+        writeLog(logConsole, `LED's brightness set to ${newBrightness}%.`)
+        // } else {
+        //     writeLog(logConsole, `Error while changing the LED's brightness`)
+        // }
+    })
+}
+
 socket.on('temperatureData', (data) => {
     writeLog(logConsole, `Received temperature read - ${data}`)
     console.log()
@@ -39,6 +80,11 @@ socket.on('temperatureData', (data) => {
 socket.on('humidityData', (data) => {
     writeLog(logConsole, `Received humidity read - ${data}`)
     humidityField.innerHTML = `${data.trim()}%`
+})
+
+socket.on('lightData', (data) => {
+    writeLog(logConsole, `Received light intensity read - ${data}`)
+    lightIntensityField.innerHTML = data.trim()
 })
 
 function writeLog(logConsole, message) {
