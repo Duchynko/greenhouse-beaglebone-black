@@ -14,7 +14,7 @@ namespace exploringBB
         setDutyCycle(milliseconds * 1000000);
     }
 
-    unsigned int angleToMilliseconds(float angle)
+    unsigned int SG90::angleToMilliseconds(float angle)
     {
         unsigned int percentage = (angle * 100) / 180;
         float range = MAX_DUTY_CYCLE - MIN_DUTY_CYCLE;

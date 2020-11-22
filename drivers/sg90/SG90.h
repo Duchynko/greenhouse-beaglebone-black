@@ -14,7 +14,6 @@ namespace exploringBB
      */
     class SG90 : protected PWM
     {
-
     public:
         SG90(string pinName);
         virtual void rotate(float angle);
