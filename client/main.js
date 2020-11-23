@@ -1,5 +1,5 @@
 const io = require('socket.io-client');
-const socket = io.connect('http://192.168.207.205:5500', {transports: ['websocket']}) 
+const socket = io.connect('http://192.168.7.2:5500', {transports: ['websocket']}) 
 
 const heatingOnButton = document.getElementById('heatingOn')
 const heatingOffButton = document.getElementById('heatingOff')
@@ -61,14 +61,9 @@ windowCloseButton.onclick = (ev) => {
 
 ledBritghtnessSetButton.onclick = (ev) => {
     const newBrightness = ledBrightnessInputField.value
-    socket.emit('brightnesSet', newBrightness, (ack) => {
-        // if (ack === 'ok') { -> Sending data + ack doesn't work in version 2.x 
-        ledBrightnessStateField.innerHTML = newBrightness + '%'
-        writeLog(logConsole, `LED's brightness set to ${newBrightness}%.`)
-        // } else {
-        //     writeLog(logConsole, `Error while changing the LED's brightness`)
-        // }
-    })
+    socket.emit('brightnesSet', newBrightness);
+    ledBrightnessStateField.innerHTML = newBrightness + '%'
+    writeLog(logConsole, `LED's brightness set to ${newBrightness}%.`)
 }
 
 socket.on('temperatureData', (data) => {
