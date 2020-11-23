@@ -1,3 +1,15 @@
+/*
+* The program loops through and reads output from the hih8120 sensor,
+* outputing data after every read. The output of the sensor is in
+* the following format:
+*
+* Humidity     (%): 40
+* Temperature (°C): 22
+* 
+* Author: Jakub Duchon
+* Date: 23.11.2020
+*/
+
 #include "HIH8120.h"
 #include "I2CDevice.h"
 #include <iostream>

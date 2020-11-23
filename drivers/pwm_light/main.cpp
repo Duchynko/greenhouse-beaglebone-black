@@ -1,3 +1,12 @@
+/*
+* The program takes the `value` argument, validates it, and if the
+* value is in the range from 0 to 100, it writes the value to the 
+* specified PWM PIN.
+* 
+* Author: Jakub Duchon
+* Date: 23.11.2020
+*/
+
 #include "../PWM.h"
 #include <iostream>
 

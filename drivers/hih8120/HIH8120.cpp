@@ -13,19 +13,9 @@ namespace exploringBB
 #define NO_READ -99
 
     /**
-     * Method to combine two 8-bit registers into a single short, which is 16-bits 
-     * on the BBB. It shifts the MSB 8-bits to the left and then ORs the result 
-     * with the LSB.
-     * 
-     * @param msb an unsigned character that contains the most significant byte
-     * @param lsb an unsigned character that contains the least significant byte
+     * Utility method used to wake up the sensor before reading
+     * data from it.
      */
-    // short HIH8120::combineRegisters(unsigned char msb, unsigned char lsb)
-    // {
-    //     //shift the MSB left by 8 bits and OR with LSB
-    //     return ((short)msb << 8) | (short)lsb;
-    // }
-
     short HIH8120::wakeUp()
     {
         unsigned char x = 0x00;
@@ -93,7 +83,7 @@ namespace exploringBB
 
     /**
      * This method  will reads the sensor's output and pass them to the combineRegisters() method to be processed.
-     * @return 0 if the registers are successfully read and -1 if the device ID is incorrect.
+     * @return 0 if the registers are successfully read, and -1 if the device ID is incorrect.
      */
     int HIH8120::readSensorState()
     {

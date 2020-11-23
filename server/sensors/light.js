@@ -1,9 +1,16 @@
+/**
+ * Reads light intensity data from the ldr sensor using the provided 
+ * binary. On every read, it emits data to all connected client sockets.
+ * 
+ * Author: Jakub Duchon
+ * Date: 23.11.2020 
+ */
+
 const spawn = require("child_process").spawn;
 
 function readData(io) {
   try {
     const proc = spawn("./bin/ldr");
-    // const proc = spawn("./bin/test_light.sh");
     console.log("Starting to read light intensity...");
 
     proc.stdout.on("data", (data) => {

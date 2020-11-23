@@ -1,3 +1,11 @@
+/*
+* The program loops through and reads output from the ldr sensor,
+* outputing data after every read.
+* 
+* Author: Jakub Duchon
+* Date: 23.11.2020
+*/
+
 #include "../util.h"
 #include <iostream>
 #include <unistd.h>

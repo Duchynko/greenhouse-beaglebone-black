@@ -1,3 +1,10 @@
+/*
+ * A driver for the hih8120 sensor.
+ * 
+ * Author: Jakub Duchon
+ * Date: 23.11.2020
+ */
+
 #include "I2CDevice.h"
 
 #define BUFFER_SIZE 4
@@ -6,7 +13,7 @@ namespace exploringBB
 {
     /**
      * @class HIH8120
-     * @brief Specific class for the HIH8120 Humidity & Temperature sensor that is a child of 
+     * @brief Specific class for the HIH8120 Humidity & Temperature sensor that inherits 
      * the I2CDevice class. Protected inheritance means that the public I2CDevice methods are 
      * not publicly accessible by an object of the HIH8120 class.
      */

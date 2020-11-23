@@ -1,4 +1,9 @@
 /*
+ * NOTE: A slightly modified version of the original file, removing
+ * some of methods that required additional dependnecies.
+ * Author: Jakub Duchon
+ * Date: 23.11.2020 
+ * 
  * GPIO.h  Created on: 29 Apr 2014
  * Copyright (c) 2014 Derek Molloy (www.derekmolloy.ie)
  * Made available for the book "Exploring BeagleBone"
