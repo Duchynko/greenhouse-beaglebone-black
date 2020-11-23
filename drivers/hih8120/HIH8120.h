@@ -17,7 +17,7 @@ namespace exploringBB
         unsigned int I2CBus, I2CAddress;
         unsigned char *registers;
         double humidity, temperature;
-        short combineRegisters(unsigned char msb, unsigned char lsb);
+        // short combineRegisters(unsigned char msb, unsigned char lsb);
         double calculateHumidity(short output);
         double calculateTemperature(short output);
         bool isValidOutput(short output, short min_value, short max_value);

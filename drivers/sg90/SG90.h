@@ -1,4 +1,4 @@
-#include "PWM.h"
+#include "../PWM.h"
 
 #define DEFAULT_PERIOD 20000000 // 20ms (50hz)
 #define MIN_PULSE_WIDTH 500000  // 0.5ms

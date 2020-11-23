@@ -20,11 +20,11 @@ namespace exploringBB
      * @param msb an unsigned character that contains the most significant byte
      * @param lsb an unsigned character that contains the least significant byte
      */
-    short HIH8120::combineRegisters(unsigned char msb, unsigned char lsb)
-    {
-        //shift the MSB left by 8 bits and OR with LSB
-        return ((short)msb << 8) | (short)lsb;
-    }
+    // short HIH8120::combineRegisters(unsigned char msb, unsigned char lsb)
+    // {
+    //     //shift the MSB left by 8 bits and OR with LSB
+    //     return ((short)msb << 8) | (short)lsb;
+    // }
 
     short HIH8120::wakeUp()
     {
@@ -102,6 +102,7 @@ namespace exploringBB
         this->registers = this->readDevice(BUFFER_SIZE);
         short rawHumidity = ((short)this->registers[0] << 8) | (short)this->registers[1];
         short rawTemperature = ((short)this->registers[2] << 8) | (short)this->registers[3];
+        // TODO: Refactor this
         rawTemperature = rawTemperature >> 2;
 
         this->humidity = this->calculateHumidity(rawHumidity);
