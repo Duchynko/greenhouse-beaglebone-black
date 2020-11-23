@@ -79,16 +79,12 @@ namespace exploringBB
         virtual int streamWrite(GPIO_VALUE);
         virtual int streamClose();
 
-        virtual int toggleOutput(int time); //threaded invert output every X ms.
-        virtual int toggleOutput(int numberOfTimes, int time);
         virtual void changeToggleTime(int time) { this->togglePeriod = time; }
         virtual void toggleCancel() { this->threadRunning = false; }
 
         // Advanced INPUT: Detect input edges; threaded and non-threaded
         virtual int setEdgeType(GPIO_EDGE);
         virtual GPIO_EDGE getEdgeType();
-        virtual int waitForEdge();                      // waits until button is pressed
-        virtual int waitForEdge(CallbackType callback); // threaded with callback
         virtual void waitForEdgeCancel() { this->threadRunning = false; }
 
         virtual ~GPIO(); //destructor will unexport the pin
@@ -105,7 +101,6 @@ namespace exploringBB
         bool threadRunning;
         int togglePeriod; //default 100ms
         int toggleNumber; //default -1 (infinite)
-        friend void *threadedPoll(void *value);
         friend void *threadedToggle(void *value);
     };
 

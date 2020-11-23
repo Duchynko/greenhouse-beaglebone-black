@@ -2,8 +2,8 @@ const spawn = require("child_process").spawn;
 
 function readData(io) {
   try {
-    // const proc = spawn("./bin/hih8120");
-    const proc = spawn("./bin/test_temhum.sh");
+    const proc = spawn("./bin/hih8120");
+    //const proc = spawn("./bin/test_temhum.sh");
     console.log("Starting to read humidity and temperature...");
 
     proc.stdout.on("data", (data) => {

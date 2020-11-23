@@ -34,7 +34,6 @@
 #include <cstdio>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/epoll.h>
 #include <pthread.h>
 using namespace std;
 
@@ -224,22 +223,6 @@ namespace exploringBB
         return 0;
     }
 
-    int GPIO::toggleOutput(int time) { return this->toggleOutput(-1, time); }
-    int GPIO::toggleOutput(int numberOfTimes, int time)
-    {
-        this->setDirection(OUTPUT);
-        this->toggleNumber = numberOfTimes;
-        this->togglePeriod = time;
-        this->threadRunning = true;
-        if (pthread_create(&this->thread, NULL, &threadedToggle, static_cast<void *>(this)))
-        {
-            perror("GPIO: Failed to create the toggle thread");
-            this->threadRunning = false;
-            return -1;
-        }
-        return 0;
-    }
-
     // This thread function is a friend function of the class
     void *threadedToggle(void *value)
     {
@@ -257,79 +240,6 @@ namespace exploringBB
                 gpio->toggleNumber--;
             if (gpio->toggleNumber == 0)
                 gpio->threadRunning = false;
-        }
-        return 0;
-    }
-
-    // Blocking Poll - based on the epoll socket code in the epoll man page
-    int GPIO::waitForEdge()
-    {
-        this->setDirection(INPUT); // must be an input pin to poll its value
-        int fd, i, epollfd, count = 0;
-        struct epoll_event ev;
-        epollfd = epoll_create(1);
-        if (epollfd == -1)
-        {
-            perror("GPIO: Failed to create epollfd");
-            return -1;
-        }
-        if ((fd = open((this->path + "value").c_str(), O_RDONLY | O_NONBLOCK)) == -1)
-        {
-            perror("GPIO: Failed to open file");
-            return -1;
-        }
-
-        //ev.events = read operation | edge triggered | urgent data
-        ev.events = EPOLLIN | EPOLLET | EPOLLPRI;
-        ev.data.fd = fd; // attach the file file descriptor
-
-        //Register the file descriptor on the epoll instance, see: man epoll_ctl
-        if (epoll_ctl(epollfd, EPOLL_CTL_ADD, fd, &ev) == -1)
-        {
-            perror("GPIO: Failed to add control interface");
-            return -1;
-        }
-        while (count <= 1)
-        { // ignore the first trigger
-            i = epoll_wait(epollfd, &ev, 1, -1);
-            if (i == -1)
-            {
-                perror("GPIO: Poll Wait fail");
-                count = 5; // terminate loop
-            }
-            else
-            {
-                count++; // count the triggers up
-            }
-        }
-        close(fd);
-        if (count == 5)
-            return -1;
-        return 0;
-    }
-
-    // This thread function is a friend function of the class
-    void *threadedPoll(void *value)
-    {
-        GPIO *gpio = static_cast<GPIO *>(value);
-        while (gpio->threadRunning)
-        {
-            gpio->callbackFunction(gpio->waitForEdge());
-            usleep(gpio->debounceTime * 1000);
-        }
-        return 0;
-    }
-
-    int GPIO::waitForEdge(CallbackType callback)
-    {
-        this->threadRunning = true;
-        this->callbackFunction = callback;
-        // create the thread, pass the reference, address of the function and data
-        if (pthread_create(&this->thread, NULL, &threadedPoll, static_cast<void *>(this)))
-        {
-            perror("GPIO: Failed to create the poll thread");
-            this->threadRunning = false;
-            return -1;
         }
         return 0;
     }
