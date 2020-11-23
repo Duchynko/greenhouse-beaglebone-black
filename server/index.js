@@ -16,7 +16,7 @@ io.on("connect", (socket) => {
 
   socket.on('heatingOn', (ack) => {
     console.log("Heating On");
-    const proc = spawn('./bin/heater', ['1'])
+    const proc = spawn('./bin/heater', ['0'])
     proc.stdout.on("data", (data) => {
       console.log(data.toString())
     })
@@ -25,7 +25,7 @@ io.on("connect", (socket) => {
 
   socket.on('heatingOff', (ack) => {
     console.log("Heating Off");
-    const proc = spawn('./bin/heater', ['0'])
+    const proc = spawn('./bin/heater', ['1'])
     proc.stdout.on("data", (data) => {
       console.log(data.toString())
     })
