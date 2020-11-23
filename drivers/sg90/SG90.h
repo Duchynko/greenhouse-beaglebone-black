@@ -1,8 +1,8 @@
 #include "PWM.h"
 
 #define DEFAULT_PERIOD 20000000 // 20ms (50hz)
-#define MIN_DUTY_CYCLE 1000000  // 1ms
-#define MAX_DUTY_CYCLE 5000000  // 5ms
+#define MIN_PULSE_WIDTH 500000  // 0.5ms
+#define MAX_PULSE_WIDTH 2500000  // 2.5ms
 
 namespace exploringBB
 {
@@ -20,6 +20,6 @@ namespace exploringBB
         virtual ~SG90();
 
     private:
-        double angleToDutyCycle(float angle);
+        unsigned int angleToDutyCycle(float angle);
     };
 } /* namespace exploringBB */

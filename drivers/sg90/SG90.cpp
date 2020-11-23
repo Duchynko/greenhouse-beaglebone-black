@@ -6,24 +6,23 @@ namespace exploringBB
     SG90::SG90(string pinName) : PWM(pinName)
     {
         setPeriod(DEFAULT_PERIOD);
-        setDutyCycle((unsigned int)MIN_DUTY_CYCLE);
+        setDutyCycle((unsigned int)MIN_PULSE_WIDTH);
         run();
     }
 
     void SG90::rotate(float angle)
     {
-        double dutyCycle = angleToDutyCycle(angle);
-        unsigned int dcInNs = dutyCycle * 1000000 * 10;
-        std::cout << dcInNs << std::endl;
-        setDutyCycle(dcInNs);
+	    unsigned int dutyCycle = angleToDutyCycle(angle);
+	    std::cout << "Servo duty cycle: " << dutyCycle << std::endl;
+        setDutyCycle(dutyCycle);
     }
 
-    double SG90::angleToDutyCycle(float angle)
+    unsigned int SG90::angleToDutyCycle(float angle)
     {
         unsigned int percentage = (angle * 100) / 180;
-        unsigned int pulseWidth = (percentage * (MAX_DUTY_CYCLE - MIN_DUTY_CYCLE) / 100) + MIN_DUTY_CYCLE;
-        std::cout << pulseWidth << " " << (double)pulseWidth / DEFAULT_PERIOD << std::endl;
-        return (double)pulseWidth / DEFAULT_PERIOD;
+        unsigned int pulseWidth = (percentage * (MAX_PULSE_WIDTH - MIN_PULSE_WIDTH) / 100) + MIN_PULSE_WIDTH;
+        double dutyCycleRatio = (double)pulseWidth / DEFAULT_PERIOD;
+	    return dutyCycleRatio * DEFAULT_PERIOD;
     }
 
     SG90::~SG90() {}
